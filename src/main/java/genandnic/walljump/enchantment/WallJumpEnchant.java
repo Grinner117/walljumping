@@ -14,6 +14,9 @@ public class WallJumpEnchant extends Enchantment {
         this.setRegistryName(WallJump.MOD_ID, "walljump");
     }
 
+    private void setRegistryName(String modId, String walljump) {
+    }
+
     @Override
     public int getMinLevel() {
         return 1;

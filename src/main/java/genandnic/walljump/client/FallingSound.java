@@ -2,9 +2,6 @@ package genandnic.walljump.client;
 
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraftforge.api.distmarker.Dist;
@@ -17,22 +14,14 @@ import static net.minecraft.sounds.SoundSource.PLAYERS;
 public class FallingSound extends AbstractTickableSoundInstance {
     private final AbstractClientPlayer player;
 
-    protected FallingSound(SoundEvent p_235076_, SoundSource p_235077_, RandomSource p_235078_, AbstractClientPlayer player) {
-        super(ELYTRA_FLYING, PLAYERS, p_235078_);
+    public FallingSound(AbstractClientPlayer player) {
+        super(ELYTRA_FLYING, PLAYERS, RandomSource.create());
         this.player = player;
         this.looping = true;
         this.delay = 0;
         this.volume = Float.MIN_VALUE;
 
     }
-
-//    public FallingSound(AbstractClientPlayer player) {
-//        super(SoundEvents.ELYTRA_FLYING, SoundSource.PLAYERS);
-//        this.player = player;
-//        this.looping = true;
-//        this.delay = 0;
-//        this.volume = Float.MIN_VALUE;
-//    }
 
     public void tick() {
 

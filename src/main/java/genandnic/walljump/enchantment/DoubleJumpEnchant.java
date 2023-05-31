@@ -15,6 +15,9 @@ public class DoubleJumpEnchant extends Enchantment {
         this.setRegistryName(WallJump.MOD_ID, "doublejump");
     }
 
+    private void setRegistryName(String modId, String doublejump) {
+    }
+
     @Override
     public int getMinLevel() {
         return 1;

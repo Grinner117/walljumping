@@ -55,20 +55,16 @@ public class ClientProxy extends CommonProxy {
                 FALLING_SOUND = new FallingSound(pl);
                 minecraft.getSoundManager().play(FALLING_SOUND);
             }
-
         }
-
     }
 
     //whenever a player joins a world, this event is called
     @SubscribeEvent
     public void onJoinWorld(PlayerEvent.PlayerLoggedInEvent event) {
-
         if (event.getEntity() == minecraft.player && Config.COMMON.playFallSound.get()) {
             FALLING_SOUND = new FallingSound(minecraft.player);
             minecraft.getSoundManager().play(FALLING_SOUND);
         }
-
     }
 
     public static boolean collidesWithBlock(Level level, AABB box) {

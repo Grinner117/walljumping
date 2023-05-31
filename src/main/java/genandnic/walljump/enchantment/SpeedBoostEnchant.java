@@ -15,6 +15,9 @@ public class SpeedBoostEnchant extends Enchantment {
         this.setRegistryName(WallJump.MOD_ID, "speedboost");
     }
 
+    private void setRegistryName(String modId, String speedboost) {
+    }
+
     @Override
     public int getMinLevel() {
         return 1;
