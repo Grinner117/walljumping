@@ -5,15 +5,15 @@ import genandnic.walljump.client.DoubleJumpLogic;
 import genandnic.walljump.client.FallingSound;
 import genandnic.walljump.client.SpeedBoostLogic;
 import genandnic.walljump.client.WallJumpLogic;
+import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.client.KeyMapping;
+import net.minecraft.network.protocol.game.ClientboundMoveEntityPacket;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
-import net.minecraftforge.client.ClientRegistry;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import org.lwjgl.glfw.GLFW;
 
@@ -26,9 +26,7 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void setupClient() {
 
-        ClientRegistry.registerKeyBinding(KEY_WALLJUMP);
         MinecraftForge.EVENT_BUS.register(this);
-
     }
 
     @SubscribeEvent
@@ -62,8 +60,9 @@ public class ClientProxy extends CommonProxy {
 
     }
 
+    //whenever a player joins a world, this event is called
     @SubscribeEvent
-    public void onJoinWorld(EntityJoinWorldEvent event) {
+    public void onJoinWorld(PlayerEvent.PlayerLoggedInEvent event) {
 
         if (event.getEntity() == minecraft.player && Config.COMMON.playFallSound.get()) {
             FALLING_SOUND = new FallingSound(minecraft.player);

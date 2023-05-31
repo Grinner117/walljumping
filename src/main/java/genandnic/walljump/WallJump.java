@@ -7,7 +7,6 @@ import genandnic.walljump.proxy.ClientProxy;
 import genandnic.walljump.proxy.CommonProxy;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -45,10 +44,4 @@ public class WallJump
     public static Enchantment DOUBLEJUMP_ENCHANT = new DoubleJumpEnchant();
     public static Enchantment SPEEDBOOST_ENCHANT = new SpeedBoostEnchant();
 
-    @SubscribeEvent
-    public static void registerEnchantments(RegistryEvent.Register<Enchantment> event) {
-        event.getRegistry().register(WALLJUMP_ENCHANT);
-        event.getRegistry().register(DOUBLEJUMP_ENCHANT);
-        event.getRegistry().register(SPEEDBOOST_ENCHANT);
-    }
 }

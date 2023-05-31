@@ -1,13 +1,13 @@
 # Find more information on toml format here:  https://github.com/toml-lang/toml
 modLoader="javafml"
-loaderVersion="[38,)"
+loaderVersion="[43,)"
 logoFile="walljump.png"
 license="GNU AGPLv3"
 [[mods]]
 modId="walljump"
-version="1.18.1-1.3.7"
+version="1.19.2-1.2,"
 displayName="Wall-Jump!"
 displayURL="https://www.curseforge.com/minecraft/mc-mods/wall-jump"
 issueTrackerURL="https://www.curseforge.com/minecraft/mc-mods/wall-jump/issues"
-authors="genandnic"
+authors="genandnic,grinner117"
 description="Jump from wall to wall!\n Jump towards a wall and hold the wall jump key (LSHIFT).\n Then while wall clinging, keep holding W and let go of LSHIFT to wall jump."
