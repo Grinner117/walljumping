@@ -2,6 +2,7 @@ package genandnic.walljump.client;
 
 import genandnic.walljump.Config;
 import genandnic.walljump.WallJump;
+import genandnic.walljump.enchantment.ModEnchantment;
 import genandnic.walljump.network.PacketHandler;
 import genandnic.walljump.network.message.MessageFallDistance;
 import genandnic.walljump.network.message.MessageWallJump;
@@ -41,8 +42,7 @@ public class WallJumpLogic {
 
     public static void doWallJump(LocalPlayer pl) {
 
-        if (!WallJumpLogic.canWallJump(pl))
-            return;
+        if (!WallJumpLogic.canWallJump(pl)) return;
 
         if (pl.isOnGround() || pl.getAbilities().flying || pl.isInWater()) {
 
@@ -62,8 +62,7 @@ public class WallJumpLogic {
 
             if (ticksKeyDown > 0 && ticksKeyDown < 4 && !walls.isEmpty() && canWallCling(pl)) {
 
-                if (Config.COMMON.autoRotation.get())
-                    pl.setYRot(getClingDirection().getOpposite().toYRot());
+                if (Config.COMMON.autoRotation.get()) pl.setYRot(getClingDirection().getOpposite().toYRot());
 
                 ticksWallClinged = 1;
                 clingX = pl.position().x;
@@ -123,7 +122,7 @@ public class WallJumpLogic {
         ItemStack stack = pl.getItemBySlot(EquipmentSlot.FEET);
         if (!stack.isEmpty()) {
             Map<Enchantment, Integer> enchantments = EnchantmentHelper.getEnchantments(stack);
-            return enchantments.containsKey(WallJump.WALLJUMP_ENCHANT);
+            return enchantments.containsKey(ModEnchantment.WALLJUMP);
         }
 
         return false;
@@ -131,8 +130,7 @@ public class WallJumpLogic {
 
     private static boolean canWallCling(LocalPlayer pl) {
 
-        if (pl.onClimbable() || pl.getDeltaMovement().y > 0.1 || pl.getFoodData().getFoodLevel() < 1)
-            return false;
+        if (pl.onClimbable() || pl.getDeltaMovement().y > 0.1 || pl.getFoodData().getFoodLevel() < 1) return false;
 
         if (ClientProxy.collidesWithBlock(pl.level, pl.getBoundingBox().move(0, -0.8, 0))) return false;
 
@@ -225,11 +223,7 @@ public class WallJumpLogic {
             Vec3 pos = entity.position();
             Vec3i motion = getClingDirection().getNormal();
 
-            entity.level.addParticle(new BlockParticleOption(ParticleTypes.BLOCK, state).setPos(blockPos), pos.x, pos.y,
-                    pos.z, motion.getX() * -1.0D, -1.0D, motion.getZ() * -1.0D);
-
+            entity.level.addParticle(new BlockParticleOption(ParticleTypes.BLOCK, state).setPos(blockPos), pos.x, pos.y, pos.z, motion.getX() * -1.0D, -1.0D, motion.getZ() * -1.0D);
         }
-
     }
-
 }

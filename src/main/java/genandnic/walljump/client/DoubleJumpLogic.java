@@ -2,6 +2,7 @@ package genandnic.walljump.client;
 
 import genandnic.walljump.Config;
 import genandnic.walljump.WallJump;
+import genandnic.walljump.enchantment.ModEnchantment;
 import genandnic.walljump.network.PacketHandler;
 import genandnic.walljump.network.message.MessageFallDistance;
 import net.minecraft.client.player.LocalPlayer;
@@ -63,8 +64,8 @@ public class DoubleJumpLogic {
         ItemStack stack = pl.getItemBySlot(EquipmentSlot.FEET);
         if (!stack.isEmpty()) {
             Map<Enchantment, Integer> enchantments = EnchantmentHelper.getEnchantments(stack);
-            if (enchantments.containsKey(WallJump.DOUBLEJUMP_ENCHANT))
-                jumpCount += enchantments.get(WallJump.DOUBLEJUMP_ENCHANT);
+            if (enchantments.containsKey(ModEnchantment.DOUBLEJUMP))
+                jumpCount += enchantments.get(ModEnchantment.DOUBLEJUMP);
         }
 
         return jumpCount;

@@ -41,8 +41,5 @@ public class FallingSound extends AbstractTickableSoundInstance {
             this.stop();
 
         }
-
     }
-
-
 }

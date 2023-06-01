@@ -1,13 +1,10 @@
 package genandnic.walljump;
 
-import genandnic.walljump.enchantment.DoubleJumpEnchant;
-import genandnic.walljump.enchantment.SpeedBoostEnchant;
-import genandnic.walljump.enchantment.WallJumpEnchant;
+import genandnic.walljump.enchantment.ModEnchantment;
 import genandnic.walljump.proxy.ClientProxy;
 import genandnic.walljump.proxy.CommonProxy;
-import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -15,21 +12,33 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @Mod(WallJump.MOD_ID)
 @Mod.EventBusSubscriber(modid = WallJump.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
-public class WallJump
-{
+public class WallJump {
     public static final String MOD_ID = "walljump";
     public static final CommonProxy PROXY = DistExecutor.safeRunForDist(() -> ClientProxy::new, () -> CommonProxy::new);
+    public static final Logger LOGGER = LogManager.getLogger();
 
     public WallJump() {
+        final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
+        modEventBus.addListener(this::setup);
+        ModEnchantment.ENCHANTMENTS.register(modEventBus);
         MinecraftForge.EVENT_BUS.register(this);
 
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::onCommonSetup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::onClientSetup);
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.COMMON_SPEC);
+    }
+
+    // imports up here // 
+
+
+    private void setup(final FMLCommonSetupEvent event) {
+
     }
 
     private void onCommonSetup(FMLCommonSetupEvent event) {
@@ -39,9 +48,5 @@ public class WallJump
     private void onClientSetup(FMLClientSetupEvent event) {
         PROXY.setupClient();
     }
-
-    public static Enchantment WALLJUMP_ENCHANT = new WallJumpEnchant();
-    public static Enchantment DOUBLEJUMP_ENCHANT = new DoubleJumpEnchant();
-    public static Enchantment SPEEDBOOST_ENCHANT = new SpeedBoostEnchant();
 
 }

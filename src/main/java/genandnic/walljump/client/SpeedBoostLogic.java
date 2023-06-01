@@ -2,6 +2,7 @@ package genandnic.walljump.client;
 
 import genandnic.walljump.Config;
 import genandnic.walljump.WallJump;
+import genandnic.walljump.enchantment.ModEnchantment;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.effect.MobEffect;
@@ -15,6 +16,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.Map;
+import java.util.Objects;
 
 @OnlyIn(Dist.CLIENT)
 public class SpeedBoostLogic {
@@ -22,7 +24,7 @@ public class SpeedBoostLogic {
     public static void doSpeedBoost(LocalPlayer pl) {
 
         int jumpBoostLevel = 0;
-        MobEffectInstance jumpBoostEffect = pl.getEffect(MobEffect.byId(8));
+        MobEffectInstance jumpBoostEffect = pl.getEffect(Objects.requireNonNull(MobEffect.byId(8)));
         if (jumpBoostEffect != null) jumpBoostLevel = jumpBoostEffect.getAmplifier() + 1;
         pl.flyingSpeed = (float) (pl.getSpeed() * (pl.isSprinting() ? 1 : 1.3) / 5) * (jumpBoostLevel * 0.5f + 1);
 
@@ -34,8 +36,7 @@ public class SpeedBoostLogic {
 
             if (pl.isCrouching()) {
 
-                if (pl.getXRot() < 30f)
-                    pl.setDeltaMovement(motion.subtract(motion.multiply(0.05, 0.05, 0.05)));
+                if (pl.getXRot() < 30f) pl.setDeltaMovement(motion.subtract(motion.multiply(0.05, 0.05, 0.05)));
 
             } else if (pl.isSprinting()) {
 
@@ -45,8 +46,7 @@ public class SpeedBoostLogic {
                     pl.setDeltaMovement(motion.add(boost.multiply(0.05, 0.05, 0.05)));
                 }
 
-                if (boost.length() > 0.5)
-                    pl.level.addParticle(ParticleTypes.FIREWORK, pos.x, pos.y, pos.z, 0, 0, 0);
+                if (boost.length() > 0.5) pl.level.addParticle(ParticleTypes.FIREWORK, pos.x, pos.y, pos.z, 0, 0, 0);
 
             }
 
@@ -67,8 +67,7 @@ public class SpeedBoostLogic {
         ItemStack stack = pl.getItemBySlot(slot);
         if (!stack.isEmpty()) {
             Map<Enchantment, Integer> enchantments = EnchantmentHelper.getEnchantments(stack);
-            if (enchantments.containsKey(WallJump.SPEEDBOOST_ENCHANT))
-                return enchantments.get(WallJump.SPEEDBOOST_ENCHANT);
+            if (enchantments.containsKey(ModEnchantment.SPEEDBOOST)) return enchantments.get(ModEnchantment.SPEEDBOOST);
         }
 
         return 0;
